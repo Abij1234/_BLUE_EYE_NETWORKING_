@@ -58,6 +58,13 @@ printf "${S4}INTERNET CONNECTION FAILD! TRY AGAIN... ${R0}\n"
 exit 1
 fi
 
+#----------------------Updating and upgrading--------------------
+
+echo
+printf "${S6}Updating and Upgrading packages....... ${R0}\n"
+echo
+apt update && apt upgrade -y
+
 #------------Downloard requirments-----------
 
 printf "${S4}Welcome to _BLUE_EYE_NETWORKING_ ${R0}\n"
