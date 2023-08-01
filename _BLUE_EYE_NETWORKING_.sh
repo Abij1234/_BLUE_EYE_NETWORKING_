@@ -48,6 +48,118 @@ R0="\033[00m"   R1="\033[1;00m"
 
 #--------------------------------
 
+#-----------print version-----------
+
+ver=$1
+
+if [[ $ver == '--version' ]]; then
+echo
+printf "Version : 2.0\n"
+fi
+exit
+
+#--------------sudousr code---------------
+
+v2=$1
+
+if [[ $v2 == '-sudousr' ]]; then
+	if [ $(id -u) = 0 ]; then
+   		echo "${S4}Welcome to SUDOUSR mode...${R0}\n"
+ 	else 
+   		printf "${S1}User is not ROOT! These mode required ROOT ascess${R0}\n"
+		exit 1
+	fi
+
+	echo
+	printf "${S1}WARNING: ${R0}These is only for sudo or root users${R0}\n"
+	echo
+	while true; do
+		printf "${S1}𝔹𝕝𝕦𝕖_𝔼𝕐𝔼_ℕ𝔼𝕋𝕎𝕆ℝ𝕂𝕀ℕ𝔾${S4}(sudousr)${R0}>>> ${R0}"
+		read sudocommand
+
+		if [[ $sudocommand == '-commands' ]]; then
+			echo
+			echo -e "
+           --------------------------------------------------------------
+                               ＨＥＬＰ ＭＥＮＵ
+           --------------------------------------------------------------
+            (1) -commands            |      For help menu
+
+            (2) -sudo_BEN_multiport  |   For scanning multiple ports
+
+	    (3) -sudo_BEN_tcp        |   For scanning weather TCP is open
+                                        
+	    (4) -sudo_BEN_stealth    |   For stealthy scanning
+										
+            (5) -sudo_BEN_decoy_stel |   scan using multiple decoy IP addresses
+                                        
+            (6) -sudo_BEN-A          |   Enable OS detection,version
+					 detection,script scanning,and traceroute
+           --------------------------------------------------" | pv -qL 300 | lolcat
+		elif [[ $sudocommand == '-sudo_BEN_multiport' ]]; then
+			echo
+			printf "${S4}You selected Scanning multiple ports${R0}\n"
+			echo
+			printf "${S4}ENTER THE IP ADDRESS OR DOMAIN NAME OF TARGET SITE==> ${R0}"
+			read it
+			printf "${S6}Scanning started! [please wait it take time] ${R0}\n"
+			echo
+			sudo nmap -sP $it
+
+		elif [[ $sudocommand == '-sudo_BEN_tcp' ]]; then
+			echo
+			printf "${S4}You selected for scanning weather TCP is open${R0}\n"
+			echo
+			printf "${S4}ENTER THE IP ADDRESS OR DOMAIN NAME OF TARGET SITE==> ${R0}"
+			read it
+			printf "${S6}Scanning started! [please wait it take time] ${R0}\n"
+			echo
+			sudo nmap -sT $it
+
+		elif [[ $sudocommand == '-sudo_BEN_stealth' ]]; then
+			echo
+			printf "${S4}You selected for stealthy scanning${R0}\n"
+			echo
+			printf "${S4}ENTER THE IP ADDRESS OR DOMAIN NAME OF TARGET SITE==> ${R0}"
+                        read it
+			printf "${S6}Scanning started! [please wait it take time] ${R0}\n"
+			echo
+			sudo nmap -sS $it
+
+		elif [[ $sudocommand == '-sudo_BEN_decoy_stel' ]]; then
+			echo
+			printf "${S4}You selected for Decoy Stealthy scanning${R0}\n"
+			echo
+			printf "${S4}ENTER THE DECOY IP ADDRESS OR DOMAIN NAME OF TARGET SITE==> ${R0}"
+			read dec
+			printf "${S4}ENTER THE IP ADDRESS OR DOMAIN NAME OF TARGET SITE==> ${R0}"
+			read it
+			echo
+			printf "${S6}Scanning started! [please wait it take time] ${R0}\n"
+			echo
+			sudo nmap -D $dec -sS $it
+
+		elif [[ $sudocommand == '-sudo_BEN-A' ]]; then
+			echo
+			printf "${S4}You selected for Enable OS detection,versiondetection,script scanning,and traceroute${R0}\n"
+			echo
+			printf "${S4}ENTER THE IP ADDRESS OR DOMAIN NAME OF TARGET SITE==> ${R0}"
+      			read it
+			printf "${S6}Scanning started! [please wait it take time] ${R0}\n"
+			echo
+			sudo nmap -A $it
+		elif [[ $sudocommand == 'clear' ]]; then
+			clear
+		else
+			printf "${S1}[!] ERROR [!] Please use -commands for help menu ${R0}\n"
+		fi
+	done
+fi
+
+
+
+
+
 #---------------Check internet connection-----------
 
 ping -c 1 google.com >/dev/null 2>&1
@@ -57,13 +169,6 @@ else
 printf "${S4}INTERNET CONNECTION FAILD! TRY AGAIN... ${R0}\n"
 exit 1
 fi
-
-#----------------------Updating and upgrading--------------------
-
-echo
-printf "${S6}Updating and Upgrading packages....... ${R0}\n"
-echo
-apt update && apt upgrade -y
 
 #------------Downloard requirments-----------
 
@@ -113,7 +218,7 @@ echo -e "
          ┃┃╱┃┃┃╰━━╮╱┃┃╱╰╮╭╮╭┫╰━╯┃┃┃╰┫┃┃╰┳┫┣┫┃╱┃┃┃╰┻━┃
          ╰╯╱╰━┻━━━╯╱╰╯╱╱╰╯╰╯╰━━━┻╯╰━┻╯╰━┻━━┻╯╱╰━┻━━━╯
 
-                        Ｖｅｒｓｉｏｎ １
+                        Ｖｅｒｓｉｏｎ 2
  
 	       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	       	      ᴄᴏᴅᴇʀ : ɴɴᴄ@ᴀʙɪᴊɪᴛʜ
